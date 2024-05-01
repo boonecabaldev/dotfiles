@@ -1,0 +1,7 @@
+alias sup='sudo apt-get update && sudo apt-get upgrade -y'
+alias bs=". ~/.bashrc"
+
+alias b="cd ~-"
+alias l='cl'
+alias ..='l ..'
+alias ...='l ../..'

@@ -1,0 +1,35 @@
+dir ()
+{
+  ls -alF --color=auto --color=always "$@" | less -rEF
+  echo
+}
+
+cl() {
+  if [ -n "$1" ]; then
+    cd "$1" 2>/dev/null
+
+    # check if cd was successful
+    if [ $? -ne 0 ]; then
+      echo -e "Error: Could not change directory to '$1'.\n"
+      return 0
+    fi
+  fi
+
+  clear
+  dir
+}
+
+hgrep() {
+  history | grep "$@"
+}
+
+setenv()
+{ 
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo -e "Usage: setenv VAR VALUE\n"
+    return 1
+  fi
+
+  eval $1=\$2;
+  export $1;
+}

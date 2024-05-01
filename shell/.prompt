@@ -1,0 +1,25 @@
+# Define colors
+RED="\[\033[0;31m\]"
+GREEN="\[\033[0;32m\]"
+BLUE="\[\033[0;34m\]"
+PURPLE="\[\033[0;35m\]"
+CYAN="\[\033[0;36m\]"
+YELLOW="\[\033[0;33m\]"
+RESET="\[\033[0m\]"
+
+# Function to get the current Git branch
+parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ \(\1\)/'
+}
+
+# Function to set the colored prompt
+set_prompt() {
+    # Get the current Git branch
+    BRANCH=$(parse_git_branch)
+
+    # Set the prompt
+    PS1="${GREEN}\u${RESET}@${BLUE}\h${RESET}\n : ${YELLOW}\w${RESET}${PURPLE}${BRANCH}${RESET} $ "
+}
+
+# Call the set_prompt function whenever a new prompt is needed
+PROMPT_COMMAND=set_prompt
