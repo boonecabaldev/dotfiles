@@ -8,6 +8,10 @@ function! s:Buffers.new() abort
     execute 'edit ' . fnameescape(a:filename)
   endfunction
 
+  function! new_obj.editUnnamed() abort
+    enew
+  endfunction
+
   function! l:new_obj.addFile(filename) abort
     execute 'badd ' . fnameescape(a:filename)
   endfunction
@@ -30,3 +34,5 @@ endfunction
 function! CreateBuffers() abort
   return s:Buffers.new()
 endfunction
+
+let buffs = CreateBuffers()

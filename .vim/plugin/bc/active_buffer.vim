@@ -1,4 +1,3 @@
-" ActiveBuffer class
 let s:ActiveBuffer = {}
 
 function! s:ActiveBuffer.new() abort
@@ -17,7 +16,7 @@ function! s:ActiveBuffer.new() abort
   endfunction
 
   function! new_obj.toFirst() abort
-    execute 'bfirst'
+    execute 'bfirst
   endfunction
 
   function! new_obj.unload() abort dict
@@ -79,6 +78,8 @@ function! s:ActiveBuffer.new() abort
   return l:new_obj
 endfunction
 
-function! ActiveBufferFactory() abort
+function! CreateActiveBuffer() abort
   return s:ActiveBuffer.new()
 endfunction
+
+let ab = CreateActiveBuffer()

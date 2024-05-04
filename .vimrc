@@ -5,11 +5,14 @@ source ~/.vim/autoload.vim
 
 " Plugins
 
-" My plugins
-" This is a plugin I wrote
-source ~/.vim/plugin/run_command.vim
-source ~/.vim/plugin/active_buffer.vim
-
 " Other
 " I use the following third-party plugin
 source ~/.vim/plugin/auto-pairs.vim
+
+" My plugins
+" This is a plugin I wrote
+source ~/.vim/plugin/run_command.vim
+source ~/.vim/plugin/bc/active_buffer.vim
+source ~/.vim/plugin/bc/buffers.vim
+source ~/.vim/plugin/bc/shared.vim
+source ~/.vim/plugin/bc/windows.vim
