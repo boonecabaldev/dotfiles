@@ -10,45 +10,6 @@ function! CloseAllButCurrent()
     endfor
 endfunction
 
-"
-" Clears all buffers, runs python3 on current file, and
-" sends output to bottom pane.
-"
-function! RunCommand(command)
-  " Save current python file.
-  let temp_filename = @%
-
-  call CloseAllButCurrent()
-
-  " Create bottom pane for python output. This leaves
-  " cursor in top pane. We want the cursor to be in
-  " the bottom pane at this juncture.
-  sp
-
-  " Moves cursor back to top pane.
-  wincmd j
-
-  " Erases current buffer.  Current python file is
-  " opened in both top and bottom pane.  We only want
-  " the python file open in the top pane.
-  enew
-
-  " Run python file, sending output to bottom pane.
-  silent execute "read !" . a:command . " " . temp_filename
-
-  " After you open the file using :read, it will prepend
-  " a blank line at the top.  We delete it here.
-  normal kdd
-
-  " Move cursor back up to top pane.
-  wincmd p
-
-endfunction
-
-nnoremap <leader>b :call CloseAllButCurrent()<CR>
-
-nnoremap <F3> :buffers<CR>
-
 function! VimCommandToBuffer(target_buff, cmd)
     execute 'redir @' . a:target_buff
     silent execute a:cmd
@@ -128,3 +89,5 @@ function! BuffersHub()
         echo "\nYou did not enter a number.\n"
     endif
 endfunction
+
+nnoremap <leader>b :call CloseAllButCurrent()<CR>

@@ -7,8 +7,9 @@ source ~/.vim/autoload.vim
 
 " My plugins
 " This is a plugin I wrote
-"source ~/.vim/plugin/run_command.vim
+source ~/.vim/plugin/run_command.vim
+source ~/.vim/plugin/active_buffer.vim
 
 " Other
 " I use the following third-party plugin
-"source ~/.vim/plugin/auto-pairs.vim
+source ~/.vim/plugin/auto-pairs.vim
