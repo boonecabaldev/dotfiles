@@ -15,6 +15,14 @@ function! Windows.new()
       return winbufnr(self.Id())
     endfunction
 
+    function! obj.height() abort dict
+      return winheight(self.number())
+    endfunction
+
+    function! obj.width() abort dict
+      return winwidth(self.number())
+    endfunction
+
     function! obj.allWindowInfoItems() abort
       return getwininfo()
     endfunction
@@ -43,7 +51,7 @@ function! Windows.new()
       close
     endfunction
 
-    function! obj.createNew() abort
+    function! obj.create() abort
       new
     endfunction
 
@@ -59,19 +67,19 @@ function! Windows.new()
       wincmd _
     endfunction
 
-    function! obj.moveCursorLeft() abort
+    function! obj.left() abort
       wincmd h
     endfunction
 
-    function! obj.moveCursorBelow() abort
+    function! obj.down() abort
       wincmd j
     endfunction
 
-    function! obj.moveCursorAbove() abort
+    function! obj.up() abort
       wincmd k
     endfunction
 
-    function! obj.moveCursorRight() abort
+    function! obj.right() abort
       wincmd l
     endfunction
 

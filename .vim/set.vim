@@ -31,7 +31,7 @@ set splitright
 
 set mouse=a
 
-colorscheme delek
+colorscheme murphy
 set background=dark
 
 set wrap

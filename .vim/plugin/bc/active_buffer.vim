@@ -7,22 +7,6 @@ function! s:ActiveBuffer.new() abort
     return bufexists(a:num)
   endfunction
 
-  function! new_obj.toNext() abort
-    bnext
-  endfunction
-  
-  function! new_obj.toPrev() abort
-    bprevious
-  endfunction
-
-  function! new_obj.toLast() abort
-    blast
-  endfunction
-
-  function! new_obj.toFirst() abort
-    bfirst
-  endfunction
-
   function! new_obj.unload() abort dict
     execute 'bunload' self.number()
   endfunction
@@ -65,6 +49,18 @@ function! s:ActiveBuffer.new() abort
 
   function! new_obj.length() abort dict
     return line('$')
+  endfunction
+
+  function! new_obj.line(start, end) abort dict
+    return getbufline(self.number(), a:start, a:end)
+  endfunction
+
+  function! new_obj.lines() abort dict
+    return getbufline(self.number(), 1, "$")
+  endfunction
+
+  function! new_obj.lineBy(line_num) abort dict
+    return self.lines()[a:line_num]
   endfunction
 
   function! l:new_obj.var(...) abort dict

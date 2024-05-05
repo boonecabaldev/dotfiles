@@ -1,130 +1,80 @@
 # Advanced Vim - Mastering Buffers and Windows
 
-
-## Buffer Commands:
-
-- `:e[dit] {file}` - Open a file in a new buffer
-
-- `:bn[ext]` - Go to the next buffer
-
-- `:bp[revious]` - Go to the previous buffer
-
-- `:bl[ast]` - Go to the last buffer in the buffer list
-
-- `:bf[irst]` - Go to the first buffer in the buffer list
-
-- `:b[uffer] {bufname|bufnr}` - Open the specified buffer
-
-- `:sbuffer` - Split window and edit the current buffer
-
-- `:badd {file}` - Add a file to the buffer list
-
-- `:bunload[!] {bufname|bufnr}` - Unload a buffer from memory
-
-- `:bdelete[!] {bufname|bufnr}` - Delete a buffer from the buffer list
-
-- `:ls` - List all buffers
-
-- `:ball` - Open all buffers in the buffer list
-
-
-## Buffer APIs:
-
-- `bufnr('%')` - Get the number of the current buffer
-
-- `bufname('%')` - Get the name of the current buffer
-
-- `bufwinnr(bufnr)` - Get the window number of a specific buffer
-
-- `bufload(bufnr)` - Load a specific buffer into memory
-
-- `bufnr(expr)` - Get the buffer number for a specific buffer name or file
-
-- `buflisted(bufnr)` - Check if a buffer is listed in the buffer list
-
-- `bufloaded(bufnr)` - Check if a buffer is loaded into memory
-
-- `bufnr('$')` - Get the number of the alternate buffer
-
-- `buftype(bufnr)` - Get the type of a buffer (e.g., 'help', 'quickfix')
-
-- `buflen(bufnr)` - Get the length (number of lines) of a buffer
-
-Additionally, you can access and modify buffer-specific options using the `:set` command or the `setbufvar()` and `getbufvar()` functions.
-
-These commands and APIs allow you to programmatically open, close, switch, and manage buffers in Vim/Neovim. You can use them in Vimscript or through external plugins and tools that interact with Vim's APIs.
-
-
-## Window Commands:
-
-- `:split [file]` - Split the current window horizontally
-
-- `:vsplit [file]` - Split the current window vertically
-
-- `:new [file]` - Create a new horizontal window and edit a new file
-
-- `:vnew [file]` - Create a new vertical window and edit a new file
-
-- `:close` - Close the current window
-
-- `:only` - Close all windows except the current one
-
-- `:qall` - Close all windows and exit Vim
-
-- `:resize [+/-]n` - Resize the current window horizontally
-
-- `:vertical resize [+/-]n` - Resize the current window vertically
-
-- `:wincmd =` - Make all windows equal in size
-
-- `:wincmd _` - Maximize the current window horizontally
-
-- `:wincmd |` - Maximize the current window vertically
-
-- `:wincmd h` - Move cursor to the window on the left
-
-- `:wincmd j` - Move cursor to the window below
-
-- `:wincmd k` - Move cursor to the window above
-
-- `:wincmd l` - Move cursor to the window on the right
-
-- `:wincmd w` - Cycle through open windows
-
-- `:wincmd r` - Swap the current window with the next one
-
-- `:wincmd T` - Move the current window to a new tab
-
-
-## Window APIs:
-
-- `winnr()` - Get the number of the current window
-
-- `win_getid()` - Get the window ID of the current window
-
-- `win_gotoid(win_id)` - Go to the window with the specified ID
-
-- `win_findbuf(bufnr)` - Find the window containing the specified buffer
-
-- `getwininfo()` - Get a list of dictionaries representing window info
-
-- `gettabwininfo()` - Get a list of window info for the current tab
-
-- `win_gettype()` - Get the type of the current window
-
-- `win_getwidth()` - Get the width of the current window
-
-- `win_getHeight()` - Get the height of the current window
-
-- `win_setwidth(n)` - Set the width of the current window
-
-- `win_setHeight(n)` - Set the height of the current window
-
-- `winline()` - Get the line number at the top of the current window
-
-- `winrestcmd()` - Get the window restore command for the current window
-
-Yes, you're correct. There is a `getbufinfo()` API in Vim/Neovim for getting information about buffers. Here's the details:
+### Buffers and Windows
+
+In Vim, a buffer is essentially an in-memory text of a file. When you open a file in Vim, it reads the file into a buffer and all changes you make are made to the buffer. When you save the file, the buffer is written back to the disk. Even if you're not editing a file, whatever you see in the Vim window is a buffer. Buffers are useful because they allow you to work with multiple files at the same time.
+
+A window in Vim is a viewport onto a buffer. You can have multiple windows viewing the same buffer, or different buffers. Windows can be split vertically or horizontally and can be resized, moved, and closed. They provide a way to view and edit multiple buffers at the same time.
+
+Buffers and windows work together in Vim to provide a powerful and flexible environment for text editing. You can have multiple buffers open at the same time, each containing a different file, and you can view and edit these buffers in one or more windows. This allows you to easily switch between files and view multiple files at once, making tasks like code navigation and multi-file editing much easier.
+
+The buffer and window commands and VimL API functions mentioned in your notes are likely functions that allow you to manipulate buffers and windows programmatically. For example, the bufadd({name}) function adds a file to the buffer list, and the bufexists({expr}) function checks if a buffer exists. There would be similar functions for working with windows.
+
+## Buffers
+
+- here are the buffer commands and viml api functions
+
+### Functions
+
+- `bufadd({name})`: Add a file to the buffer list.
+- `bufexists({expr})`: Check if a buffer exists.
+- `buflisted({expr})`: Check if a buffer is listed.
+- `bufload({expr})`: Load a buffer into memory.
+- `bufloaded({expr})`: Check if a buffer is loaded.
+- `bufname({expr})`: Get the name of a buffer.
+- `bufnr({expr} [, {create}])`: Get the number of a buffer.
+- `bufwinid({expr})`: Get the window ID for a buffer.
+- `bufwinnr({expr})`: Get the window number for a buffer.
+- `getbufinfo([{expr}])`: Get information about buffers.
+- `getbufline({expr}, {lnum} [, {end}])`: Get lines from a buffer.
+- `getbufvar({expr}, {varname} [, {def}])`: Get a buffer-local variable.
+- `setbufline({expr}, {lnum}, {text})`: Set a line in a buffer.
+- `setbufvar({expr}, {varname}, {val})`: Set a buffer-local variable.
+
+### Commands
+
+- `:badd {file}`: Add a file to the buffer list.
+- `:bdelete {buf}`: Delete a buffer.
+- `:bdo {cmd}`: Execute a command in each buffer.
+- `:buffer {buf}`: Edit a buffer.
+- `:buffers`: List all buffers.
+- `:bnext`: Go to the next buffer.
+- `:bprevious`: Go to the previous buffer.
+- `:bfirst`: Go to the first buffer.
+- `:blast`: Go to the last buffer.
+- `:bmodified`: Go to the next modified buffer.
+
+## Windows
+
+- here are the window commands and viml api functions
+
+### Functions
+
+- `winbufnr({nr})`: Get the buffer number for a window.
+- `wincol()`: Get the cursor column in the window.
+- `winheight({nr})`: Get the height of a window.
+- `win_id2tabwin({expr})`: Convert a window ID to a tab and window number.
+- `win_id2win({expr})`: Convert a window ID to a window number.
+- `winline()`: Get the cursor line number in the window.
+- `winnr([{arg}])`: Get the number of the current window.
+- `winrestcmd()`: Get the command to restore all windows.
+- `winrestview({dict})`: Restore the view of a window.
+- `winsaveview()`: Save the view of the current window.
+- `winwidth({nr})`: Get the width of a window.
+- `win_getid([{nr} [, {tabnr}]])`: Get the window ID.
+- `win_gotoid({expr})`: Go to a window by its ID.
+- `win_gettype([{nr}])`: Get the type of a window.
+- `win_getwidth([{nr}])`: Get the width of a window.
+- `win_getheight([{nr}])`: Get the height of a window.
+- `win_setwidth({width})`: Set the width of a window.
+- `win_setheight({height})`: Set the height of a window.
+
+### Commands
+
+- `:split`: Split the current window.
+- `:vsplit`: Split the current window vertically.
+- `:close`: Close the current window.
+- `:only`: Close all windows except the current one.
 
 ### `getbufinfo([bufnr])`
 
@@ -214,31 +164,123 @@ This ensures that if an error occurs within any of these methods (e.g., an inval
 
 It's a good practice to use `abort` on all Vim script function definitions, unless you have a specific reason to allow the function to continue executing after an error occurs.
 
-## `ActiveBuffer`
+## Object-Oriented API
 
-Sure, here's an example of how you can create a `ActiveBuffer` class using a closure in Vim script, with methods that implement the buffer commands and APIs you mentioned:
+- made object-oriented wrapper for three classes
+
+## `Buffers`
 
 ```vim
-" ActiveBuffer class
-let s:ActiveBuffer = {}
+" Buffers class
+let s:Buffers = {}
+
+function! s:Buffers.new() abort
+  let l:new_obj = deepcopy(s:Buffers)
+
+  function! new_obj.toNext() abort
+    bnext
+  endfunction
+  
+  function! new_obj.toPrev() abort
+    bprevious
+  endfunction
+
+  function! new_obj.toLast() abort
+    blast
+  endfunction
+
+  function! new_obj.toFirst() abort
+    bfirst
+  endfunction
+
+  function! new_obj.toNextModified(num) abort
+    bmodified
+  endfunction
+
+  function! new_obj.getBufferWindowNumber(num) abort
+    return bufwinnr(a:num)
+  endfunction
+
+  function! new_obj.getBufferName(num) abort
+    return bufname(a:num)
+  endfunction
+
+  function! new_obj.getBufferNumber(name) abort
+    return bufnr(a:name)
+  endfunction
+
+  function! new_obj.deleteBuffer(num) abort
+    execute 'bdelete!' . a:num
+  endfunction
+
+  function! new_obj.bufferIsListed(num) abort
+    return buflisted(a:num)
+  endfunction
+
+  function! new_obj.editFile(filename) abort
+    execute 'edit ' . fnameescape(a:filename)
+  endfunction
+
+  function! new_obj.bufferExists(num) abort
+    return bufexists(a:num)
+  endfunction
+
+  function! new_obj.editUnnamed() abort
+    enew
+  endfunction
+
+  function! new_obj.addFile(filename) abort
+    execute 'badd ' . fnameescape(a:filename)
+  endfunction
+
+  function! new_obj.numbers() abort
+    return range(1, bufnr('$'))
+  endfunction
+
+  function! new_obj.list() abort
+    ls
+  endfunction
+
+  function! new_obj.openBuffer(num) abort
+    buffer a:num
+  endfunction
+
+  function! new_obj.openAllInList() abort
+    ball
+  endfunction
+
+  function! new_obj.infoItems() abort
+    return getbufinfo()
+  endfunction
+
+  function! new_obj.closeAllBut(active_buffer_num) abort dict
+    for buff_num in self.numbers()
+      if self.bufferExists(buff_num) && self.bufferIsListed(buff_num) && buff_num != a:active_buffer_num
+        call self.deleteBuffer(buff_num)
+      endif
+    endfor
+  endfunction
+
+  return l:new_obj
+endfunction
+
+function! CreateBuffers() abort
+  return s:Buffers.new()
+endfunction
+
+let buffs = CreateBuffers()
+```
+
+## `ActiveBuffer`
+
+```vim
+let s:ActiveBuffer = {} 
 
 function! s:ActiveBuffer.new() abort
   let l:new_obj = deepcopy(s:ActiveBuffer)
 
-  function! new_obj.toNext() abort
-    execute 'bnext'
-  endfunction
-
-  function! new_obj.toPrev() abort
-    execute 'bprevious'
-  endfunction
-
-  function! new_obj.toLast() abort
-    execute 'blast'
-  endfunction
-
-  function! new_obj.toFirst() abort
-    execute 'bfirst'
+  function! new_obj.exists(num) abort
+    return bufexists(a:num)
   endfunction
 
   function! new_obj.unload() abort dict
@@ -253,16 +295,16 @@ function! s:ActiveBuffer.new() abort
     return bufnr('%')
   endfunction
 
-  function! new_obj.name() abort
-    return bufname('%')
+  function! new_obj.name(...) abort
+    if a:0
+      execute 'file ' . a:1
+    else
+      return bufname('%')
+    endif
   endfunction
 
-  function! new_obj.setName(name) abort
-    execute 'file ' . a:name
-  endfunction
-
-  function! new_obj.exists() abort
-    return bufexists('%')
+  function! new_obj.exists() abort dict
+    return bufexists(self.number())
   endfunction
 
   function! new_obj.windowNumber() abort dict
@@ -285,150 +327,155 @@ function! s:ActiveBuffer.new() abort
     return line('$')
   endfunction
 
+  function! new_obj.line(start, end) abort dict
+    return getbufline(self.number(), a:start, a:end)
+  endfunction
+
+  function! new_obj.lines() abort dict
+    return getbufline(self.number(), 1, "$")
+  endfunction
+
+  function! new_obj.lineBy(line_num) abort dict
+    return self.lines()[a:line_num]
+  endfunction
+
+  function! l:new_obj.var(...) abort dict
+    if a:0 == 2
+      call setbufvar(self.number(), a:1, a:2)
+    else
+      return getbufvar(self.number(), a:1)
+    endif
+  endfunction
+
+  function! l:new_obj.infoItem() abort dict
+    return getbufinfo(self.number())
+  endfunction
+
   return l:new_obj
 endfunction
 
-function! ActiveBufferFactory() abort
+function! CreateActiveBuffer() abort
   return s:ActiveBuffer.new()
 endfunction
-```
 
-To create an instance of the `ActiveBuffer` class, you can call the `new` method:
+let ab = CreateActiveBuffer()
+```
+## `Windows`
 
 ```vim
-let active_buffer = s:ActiveBuffer.new()
-```
+let Windows = {}
 
-Now you can call the methods on the `active_buffer` instance:
+function! Windows.new()
+    let obj = {}
 
-```vim
-" Switch to the next buffer
-call active_buffer.toNext()
+    function! obj.number() abort
+      return winnr()
+    endfunction
 
-" Get the current buffer number
-echo active_buffer.number()
+    function! obj.Id() abort
+      return win_getid()
+    endfunction
 
-" Check if buffer 123 is loaded
-echo active_buffer.loaded(123)
+    function! obj.bufferNumber() abort dict
+      return winbufnr(self.Id())
+    endfunction
 
-" Unload buffer 456
-call active_buffer.unload(456)
-```
+    function! obj.height() abort dict
+      return winheight(self.number())
+    endfunction
 
+    function! obj.width() abort dict
+      return winwidth(self.number())
+    endfunction
 
-This implementation uses a closure to create the `ActiveBuffer` class, with methods that wrap the corresponding buffer commands and APIs. The `new` method creates a new instance of the class and returns it, with all the methods bound to the instance.
+    function! obj.allWindowInfoItems() abort
+      return getwininfo()
+    endfunction
 
-Note that some methods accept arguments (like `bunload` and `bdelete`), while others don't (like `bnext` and `bprevious`). The methods that accept arguments use the `...` syntax to handle variable arguments, and default to the current buffer if no argument is provided.
+    function! obj.lastAccessedWindowNumber() abort
+      return winnr('#')
+    endfunction
 
-## `Buffers`
+    function! obj.cursorLineNumber() abort
+      return winline()
+    endfunction
 
-Sure, here's an example of how you can create a `Buffers` class using a closure in Vim script, with methods that implement the buffer commands `edit`, `badd`, `ls`, `ball`, and the `getbufinfo` API:
+    function! obj.cursorColNumber() abort
+      return wincol()
+    endfunction
 
+    function! obj.split() abort
+      split
+    endfunction
 
-```vim
-" Buffers class
-let s:Buffers = {}
+    function! obj.vsplit() abort
+      vsplit
+    endfunction
 
-function! s:Buffers.new() abort
-  let l:new_obj = deepcopy(s:Buffers)
+    function! obj.close() abort
+      close
+    endfunction
 
-  function! l:new_obj.edit(filename) abort
-    execute 'edit ' . fnameescape(a:filename)
-  endfunction
+    function! obj.create() abort
+      new
+    endfunction
 
-  function! l:new_obj.addFile(filename) abort
-    execute 'badd ' . fnameescape(a:filename)
-  endfunction
+    function! obj.only() abort
+      only
+    endfunction
 
-  function! l:new_obj.list() abort
-    execute 'ls'
-  endfunction
+    function! obj.closeAllAndExit() abort
+      qall
+    endfunction
 
-  function! l:new_obj.openAllInList() abort
-    execute 'ball'
-  endfunction
+    function! obj.maxCurrentHor() abort
+      wincmd _
+    endfunction
 
-  function! l:new_obj.infoItems(...) abort
-    let l:number = a:0 ? a:1 : 0
-    return getbufinfo(l:number)
-  endfunction
+    function! obj.left() abort
+      wincmd h
+    endfunction
 
-  function! l:new_obj.setVar(number, varname, val) abort
-    call setbufvar(a:number, a:varname, a:val)
-  endfunction
+    function! obj.down() abort
+      wincmd j
+    endfunction
 
-  function! l:new_obj.getVar(number, varname) abort
-    return getbufvar(a:number, a:varname)
-  endfunction
+    function! obj.up() abort
+      wincmd k
+    endfunction
 
-  return l:new_obj
+    function! obj.right() abort
+      wincmd l
+    endfunction
+
+    function! obj.cycleThroughOpen() abort
+      wincmd w
+    endfunction
+
+    function! obj.swapCurrentForNext() abort
+      wincmd r
+    endfunction
+
+    return obj
 endfunction
+
+" Usage:
+let win = Windows.new()
 ```
 
+### Setting Up
 
-To create an instance of the `Buffers` class, you can call the `new` method:
+- show .vimrc sourcing
+- show global declarations in each file
 
+## Examples Using APIs
 
-```vim
-let buffers = s:Buffers.new()
-```
+### Functional Programming
 
+- map
+- filter
+- lambda
 
-Now you can call the methods on the `buffers` instance:
+## Run Command Example
 
-
-```vim
-" Open a new file
-call buffers.edit('path/to/file.txt')
-
-" Add a file to the buffer list
-call buffers.addFile('path/to/another.py')
-
-" List all buffers
-call buffers.list()
-
-" Open all buffers in the buffer list
-call buffers.outputAll()
-
-" Get information about all buffers
-let buf_info = buffers.infoItems()
-```
-
-
-This implementation uses a closure to create the `Buffers` class, with methods that wrap the corresponding buffer commands and APIs. The `new` method creates a new instance of the class and returns it, with all the methods bound to the instance.
-
-The `edit` and `badd` methods use the `fnameescape` function to properly escape the filename before executing the command. The `getbufinfo` method accepts an optional argument to get information about a specific buffer, or all buffers if no argument is provided.
-
-1. `setbufvar(bufnr, varname, val)`:
-
-   - `bufnr` is the buffer number, or `0` for the current buffer
-
-   - `varname` is the name of the buffer-local variable
-
-   - `val` is the new value to assign to the variable
-
-   This method sets the buffer-local variable `varname` to the given `val` for the specified buffer `bufnr`.
-
-2. `getbufvar(bufnr, varname)`:
-
-   - `bufnr` is the buffer number, or `0` for the current buffer
-
-   - `varname` is the name of the buffer-local variable
-
-   This method retrieves the value of the buffer-local variable `varname` for the specified buffer `bufnr`.
-
-You can use these methods like this:
-
-
-```vim
-let buffers = s:Buffers.new()
-
-" Set a buffer-local variable 'myvar' to 1 for the current buffer
-call buffers.setVar(0, 'myvar', 1)
-
-" Get the value of 'myvar' for buffer 123
-let val = buffers.getVar(123, 'myvar')
-
-" Set the 'makeprg' option for buffer 456
-call buffers.setVar(456, '&makeprg', 'make -j4')
-```
+- make run command functionality
