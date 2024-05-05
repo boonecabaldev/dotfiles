@@ -3,6 +3,10 @@ let s:ActiveBuffer = {}
 function! s:ActiveBuffer.new() abort
   let l:new_obj = deepcopy(s:ActiveBuffer)
 
+  function! new_obj.exists(num) abort
+    return bufexists(a:num)
+  endfunction
+
   function! new_obj.toNext() abort
     bnext
   endfunction
@@ -31,12 +35,12 @@ function! s:ActiveBuffer.new() abort
     return bufnr('%')
   endfunction
 
-  function! new_obj.name() abort
-    return bufname('%')
-  endfunction
-
-  function! new_obj.setName(name) abort
-    execute 'file ' . a:name
+  function! new_obj.name(...) abort
+    if a:0
+      execute 'file ' . a:1
+    else
+      return bufname('%')
+    endif
   endfunction
 
   function! new_obj.exists() abort dict
@@ -63,12 +67,12 @@ function! s:ActiveBuffer.new() abort
     return line('$')
   endfunction
 
-  function! l:new_obj.setVar(varname, val) abort dict
-    call setbufvar(self.number(), a:varname, a:val)
-  endfunction
-
-  function! l:new_obj.getVar(varname) abort dict
-    return getbufvar(self.number(), a:varname)
+  function! l:new_obj.var(...) abort dict
+    if a:0 == 2
+      call setbufvar(self.number(), a:1, a:2)
+    else
+      return getbufvar(self.number(), a:1)
+    endif
   endfunction
 
   function! l:new_obj.infoItem() abort dict

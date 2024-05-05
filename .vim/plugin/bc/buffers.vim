@@ -4,10 +4,6 @@ let s:Buffers = {}
 function! s:Buffers.new() abort
   let l:new_obj = deepcopy(s:Buffers)
 
-  function! new_obj.exists(num) abort
-    return bufexists(a:num)
-  endfunction
-
   function! new_obj.delete(number) abort
     execute 'bdelete!' . a:number
   endfunction
@@ -18,6 +14,10 @@ function! s:Buffers.new() abort
 
   function! new_obj.edit(filename) abort
     execute 'edit ' . fnameescape(a:filename)
+  endfunction
+
+  function! new_obj.exists(num) abort
+    return bufexists(a:num)
   endfunction
 
   function! new_obj.editUnnamed() abort

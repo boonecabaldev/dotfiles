@@ -34,8 +34,6 @@
 
 - `bufname('%')` - Get the name of the current buffer
 
-- `bufexists(expr)` - Check if a buffer exists
-
 - `bufwinnr(bufnr)` - Get the window number of a specific buffer
 
 - `bufload(bufnr)` - Load a specific buffer into memory
