@@ -3,6 +3,26 @@ let s:ActiveBuffer = {}
 function! s:ActiveBuffer.new() abort
   let l:new_obj = deepcopy(s:ActiveBuffer)
 
+  function! new_obj.toNext() abort
+    bnext
+  endfunction
+  
+  function! new_obj.toPrev() abort
+    bprevious
+  endfunction
+
+  function! new_obj.toLast() abort
+    blast
+  endfunction
+
+  function! new_obj.toFirst() abort
+    bfirst
+  endfunction
+
+  function! new_obj.toNextModified(num) abort
+    bmodified
+  endfunction
+
   function! new_obj.exists(num) abort
     return bufexists(a:num)
   endfunction
