@@ -1,7 +1,6 @@
 " Global
 source ~/.vim/set.vim
 source ~/.vim/maps.vim
-source ~/.vim/autoload.vim
 
 " Plugins
 

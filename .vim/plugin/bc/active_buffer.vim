@@ -1,22 +1,22 @@
-let s:ActiveBuffer = {}
+let s:ActiveBuffer = {} 
 
 function! s:ActiveBuffer.new() abort
   let l:new_obj = deepcopy(s:ActiveBuffer)
 
   function! new_obj.toNext() abort
-    execute 'bnext'
+    bnext
   endfunction
-
+  
   function! new_obj.toPrev() abort
-    execute 'bprevious'
+    bprevious
   endfunction
 
   function! new_obj.toLast() abort
-    execute 'blast'
+    blast
   endfunction
 
   function! new_obj.toFirst() abort
-    execute 'bfirst
+    bfirst
   endfunction
 
   function! new_obj.unload() abort dict
@@ -39,8 +39,8 @@ function! s:ActiveBuffer.new() abort
     execute 'file ' . a:name
   endfunction
 
-  function! new_obj.exists() abort
-    return bufexists('%')
+  function! new_obj.exists() abort dict
+    return bufexists(self.number())
   endfunction
 
   function! new_obj.windowNumber() abort dict
