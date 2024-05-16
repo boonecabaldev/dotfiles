@@ -1,8 +1,8 @@
 " Buffers class
-let s:Buffers = {}
+let g:Buffers = {}
 
-function! s:Buffers.new() abort
-  let l:new_obj = deepcopy(s:Buffers)
+function! Buffers.new() abort
+  let l:new_obj = deepcopy(g:Buffers)
 
   function! new_obj.getBufferWindowNumber(num) abort
     return bufwinnr(a:num)
@@ -10,6 +10,10 @@ function! s:Buffers.new() abort
 
   function! new_obj.getBufferName(num) abort
     return bufname(a:num)
+  endfunction
+
+  function! new_obj.unloadBuffer(num) abort
+    return bunload(a:num)
   endfunction
 
   function! new_obj.getBufferNumber(name) abort
@@ -41,17 +45,7 @@ function! s:Buffers.new() abort
   endfunction
 
   function! new_obj.numbers() abort
-    return range(1, bufnr('$'))
-  endfunction
-
-  function! new_obj.openBufferNumbers() abort
-    let buffer_numbers = []
-    for i in range(1, bufnr('$'))
-      if buflisted(i) && bufexists(i)
-        call add(buffer_numbers, i)
-      endif
-    endfor
-    return buffer_numbers
+    return copy(range(1, bufnr('$')))
   endfunction
 
   function! new_obj.list() abort
@@ -82,7 +76,7 @@ function! s:Buffers.new() abort
 endfunction
 
 function! CreateBuffers() abort
-  return s:Buffers.new()
+  return g:Buffers.new()
 endfunction
 
 let buffs = CreateBuffers()
