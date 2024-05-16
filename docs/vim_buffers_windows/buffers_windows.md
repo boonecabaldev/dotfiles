@@ -1,9 +1,18 @@
 ## Buffers
+<<<<<<< HEAD
 A buffer is an area in memory that stores text. When you open a file, its content is read into a buffer.  When you makes changes to that buffer and save it to a file, vim copies the buffer to a file on the hard drive.
 
 A buffer doesn't display the text, a window, or "pane",  does. 
 
 > This tutorial will use the term pane instead of window. A 
+=======
+
+A buffer is an area in memory that stores text. When you open a file, its content is read into a buffer.  When you makes changes to that buffer and save it to a file, vim copies the buffer to a file on the hard drive.
+
+A buffer doesn't display the text, a window, or "pane",  does.
+
+> This tutorial will use the term pane instead of window. A
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 A pane is is a section within the window. A pane can only display one buffer at a time. For simplicity, we'll assume we're working in a single pane.  We'll cover panes in more detail later.
 
@@ -18,11 +27,17 @@ Number  Indicator  Name     Line #
 ```
 
 ```vim
+<<<<<<< HEAD
      1  #          "a.txt"  line 1
+=======
+:ls
+  1 %a   "[No Name]"                    line 1
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 ```
 
 All of these fields are self-explanitory except Indicator. Indicator gives you more data about the buffer and can have any number of values or combination of values. Covering them all is outside the scope of this tutorial, so we'll only cover a few.
 
+<<<<<<< HEAD
 > For more information about Indicators, use `:help ls`.
 
 -----------------------
@@ -30,6 +45,19 @@ All of these fields are self-explanitory except Indicator. Indicator gives you m
 ----------------
 
 
+=======
+| Indicator 	| Description 	|
+|----------:	|-------------	|
+|         u 	| unlisted buffer            	|
+|         % 	| the buffer in the current window            	|
+|         # 	| the alternative buffer for ":e #"            	|
+|         a  	| an active buffer: it is loaded and visible           	|
+|         h  	|  a hidden buffer: It is loaded, but currently not displayed in a window           	|
+
+> For more information about Indicators, use `:help ls`.
+
+As you can see from the output of `:ls` above, the indicator is a combination of `%` and `a`, which says this buffer is in the current window and is active. This 
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 ### Creating Buffers
 
@@ -71,6 +99,10 @@ Buffer 1 should be active. Make some changes to it, and save it to file named `a
 ```vim
 [ls]
 ```
+<<<<<<< HEAD
+=======
+
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 ### Deleting Buffers
 
 You can delete a buffer using `:bdelete`. Navigate to buffer 2 using `:buffer 2`, delete it using `:bdelete`, and view buffers using `:ls`.
@@ -84,7 +116,11 @@ Now you only have buffer 1 (`a.txt`).
 If you have unsaved changes to a buffer and try to delete it using `:bdelete`, vim will prompt you with [research]. You can override this and discard changes using  `:bdelete!`.
 
 > You can delete buffers using `:q`, `:x`, and `:wq`.
+<<<<<<< HEAD
 > 
+=======
+>
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 > - `:q`: XXX
 > - `:x`: XXX
 > - `:wq`: XXX
@@ -101,7 +137,11 @@ Save changes to buffer 2 and then quit using `:wq`, and view buffers using `:ls`
 ```vim
 [ls]
 ```
+<<<<<<< HEAD
 Buffer 1 is the only buffer. 
+=======
+Buffer 1 is the only buffer.
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 Let's demonstrate deleting all buffers. Open `b.txt` using `:edit b.txt`, and view buffers using `:ls`.
 
@@ -122,7 +162,11 @@ Buffer states are complex; it took me a while to understand them. Let's cover ea
 
 #### Unlisted
 
+<<<<<<< HEAD
 An unlisted buffer does not appear in the list produced using `:ls` or `:buffers`. 
+=======
+An unlisted buffer does not appear in the list produced using `:ls` or `:buffers`.
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 When would could you use an unlisted buffer? Whenever you want to temporarily create or edit text. Once you're done, you can delete the buffer and discard the changes. The following code creates an unlisted buffer:
 
@@ -141,6 +185,10 @@ Understand: `:ls!`, `:ls u`, and `:buffers!` display all buffers, both listed an
 " List all listed and unlisted buffers
 :ls!
 ```
+<<<<<<< HEAD
+=======
+
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 #### Inactive
 
 An inactive buffer is one that is not displayed in any pane. Using the `:new` command creates a new pane and buffer, thereby making the previously active buffer inactive.
@@ -175,7 +223,11 @@ An unloaded buffer is one that has been removed from memory; `:bunload N` does t
 
 You can create multiple panes, allowing you to edit different buffers. Alternatively, you can edit the same buffer in multiple panes, allowing you to view and edit multiple parts of the same buffer.
 
+<<<<<<< HEAD
 Similar to how you can only have one active buffer, you can only have one active pane, and each pane has its own active buffer. Therefore, you can have multiple active buffers. Whichever pane contains the cursor is the active pane. 
+=======
+Similar to how you can only have one active buffer, you can only have one active pane, and each pane has its own active buffer. Therefore, you can have multiple active buffers. Whichever pane contains the cursor is the active pane.
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 > You may need to reread this a few times to understand.
 
@@ -183,9 +235,15 @@ Similar to how you can only have one active buffer, you can only have one active
 
 There are useful settings that control how window creation and splitting work with the `:new`, `:split`, and `:vsplit` commands.
 
+<<<<<<< HEAD
 - `:new` 
 - `:split` 
 - `:vsplit` 
+=======
+- `:new`
+- `:split`
+- `:vsplit`
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 Close and re-open vim. You have one pane and one unnamed buffer. Use `:new` to create a second pane and buffer, and then `:ls` to view buffers.
 
@@ -219,7 +277,11 @@ It's important to understand that both buffers and windows have numbers which id
 
 ### Deleting Panes
 
+<<<<<<< HEAD
 Similar to buffers, you can use `:x`, `:bd`, `:q`, and `:wq` to close a window. 
+=======
+Similar to buffers, you can use `:x`, `:bd`, `:q`, and `:wq` to close a window.
+>>>>>>> 42bf0ca (resuming work on vim buffers article)
 
 Understand that some commands delete buffers, and some delete both panes and buffers. You can delete a buffer, or a buffer and a pane, but you can't delete a pane without deleting a buffer.
 
