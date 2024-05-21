@@ -1,2 +1,6 @@
-nnoremap <space>e :echo<space>
-nnoremap <space>c :call<space>
+function! ExeCmdLs(cmd)
+    exe a:cmd .. '!'
+    ls!
+endfunction
+
+nnoremap <space>c :call ExeCmdLs('')<left><left>

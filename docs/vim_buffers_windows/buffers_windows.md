@@ -52,6 +52,23 @@ u    an unlisted buffer (only displayed when [!] is used)
 
 The Indicator in the above `:ls` output is `%a`, which specifies that the buffer is active (`a`) and in the current window or pane (`%`). `+` is useful; it tells you if a buffer is modified. We'll cover another useful one, `#`, later.
 
+### Helper `:ls` Function
+
+Throughout this article we will be issuing command-line commands followed by the `:ls` command. This would require us to use something like `:bd | ls`. This repetition can be tedious.  As a convenience I recommend adding the following function to your `.vimrc`:
+
+```vim
+function! ExeCmdLs(cmd)
+    exe a:cmd .. '!'
+    ls!
+endfunction
+
+nnoremap <space>c :call ExeCmdLs('')<left><left>
+```
+
+In normal mode when you type `<space>c`, it places you in command-line mode and types `:call ExeCmdLs('_')`, placing your cursor at the `_`.
+
+For the rest of the article where ever your see `:[command] | ls`, this translates to using the `<space>c[command]` macro.
+
 ### Saving Buffers to Files
 
 Before we can create a new buffer, we need to save the active buffer to a file, effectively giving it a name. You can do this using `:w a.txt`. Add the text `File a.txt` to the buffer followed by the commands `:w a.txt | ls`, producing the following output:
@@ -65,24 +82,19 @@ Before we can create a new buffer, we need to save the active buffer to a file, 
 
 > You can use the `|` operator to invoke multiple command-mode commands.
 
-Notice that the buffer is now named `a.txt` and it has a number of `1`. Now you can create a new buffer.
+Notice that the buffer is now named `a.txt` and it has a number of 1. Now you can create a new buffer.
 
 In addition to `:w`, you can save all open buffers using `:wa`, which stands for "write all."
 
 ### Creating Buffers
 
-You can create a new, unnamed buffer using `:enew`. Use the commands `:enew | ls`, which produces the following output:
+Use `:enew | ls` to create a new, unnamed buffer:
 
 ```vim
 :enew | ls
   1 #    "a.txt"                        line 1
   4 %a   "[No Name]"                    line 1
 ```
-
-Now we two buffers
-
-- buffer `1`: `a.txt`
-- buffer `4`: `[No Name]`, the active buffer
 
 ### Deleting Buffers
 
