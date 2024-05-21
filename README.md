@@ -1,11 +1,11 @@
-
-# How to Create a GitHub Dotfiles Repo for GitHub Codespaces
+# How to Create a Lightweight Dotfiles Repository
 
 ### Introduction
 
 If you frequently create GitHub Codespaces, configuring your customizations can be tedious and repetitive. This tutorial will show you how to consolidate all of your customizations in a dotfiles GitHub repository. Along the way you will learn some handy Linux and vim techniques. 
 
 The goal is to create a minimalist, well structured, boilerplate repository that you can augment as you see fit. The bulk of the tutorial consists of building the repository one file at a time with commentary describing key points. When you're done, you will have created a generic repository with the following:
+
 - Good generic `.bashrc` settings
 - Small but powerful set of bash functions and aliases for navigation 
 - Good generic settings for vim
@@ -51,21 +51,17 @@ dotfiles
 
 `.bashrc` is a configuration file for bash that can grow to be very large and convoluted over time. We are going to solve this problem using a divide-and-conquer strategy by breaking `.bashrc` into the smaller modules (files) `.vars`, `.prompt`, `.aliases`, and `.functions`; `.bashrc` then simply loads each of these modules. We will use the same approach with `.vimrc`, the primary configuration file for the text editor Vim, breaking it into the modules `set.vim`, `maps.vim`, and `autoload.vim`.
 
-<$>[note]
-**Note:** Your setup might require you to use different configuration files like `.bash_profile`. Make whatever changes you need to this repository.
-<$>
+> **Note:** Your setup might require you to use different configuration files like `.bash_profile`. Make whatever changes you need to this repository.
 
 ## Test Everything
 
 As you create each file, test it. Confirm it is doing exactly what you expect it to do, and do not proceed any further in the tutorial until you have. Making too many changes without testing them can create some big headaches for you. Be patient and take it one step at a time, friend.
 
-
 ## Complete Code Listings
 
 By including the full code listings for each file, though it bloats the article somewhat, makes it easier to copy and paste the code as you proceed through it.
 
-
-## Step One – Creating the Files and Directories
+## Step One -- Creating the Files and Directories
 
 Let's start building your dotfiles repository. Log in to your GitHub account and create a new Codespace. Once VS Code finishes loading, open a terminal use the following command to create all of your dotfiles directories:
 
@@ -83,7 +79,7 @@ It's pretty cool to create all these files in one command. The shell uses brace 
 
 It wouldn't hurt to confirm all the directories and files have been created.
 
-## Step Two – Creating `install.sh`
+## Step Two -- Creating `install.sh`
 
 Let's create an installation script that creates symbolic links from your dotfiles in your `dotfiles/` directory to your home directory. Open the script using the following command:
 
@@ -138,7 +134,7 @@ Take a moment to confirm all your directories and files exist.
 
 Now would be a good time to add your project to source control.  Add all your changes, commit them with a meaningful message, and then push.
 
-## Step Three – Creating `.bashrc`
+## Step Three -- Creating `.bashrc`
 
 Change to the dotfiles directory and edit your `.bashrc` file using the following command:
 
@@ -173,7 +169,7 @@ It's a good idea to use the following command every time you modify one of your 
 
 This is how you can activate your changes and test them.
 
-## Step Four – Creating `.functions`
+## Step Four -- Creating `.functions`
 
 Define all of your custom bash functions in `.functions`. Open it using the following command:
 
@@ -221,20 +217,25 @@ setenv()
 }
 
 ```
-### `dir`
+
+### dir
+
 The `dir` function generates a colored listing and pipes the output to `less`, allowing you to scroll through a long listing.  To preserve the color in `less`, you have to use the `--color=always` option for `ls` and the `-r` option for `less`.
 
-### `cl`
+### cl
+
 The `cl` is a very useful function that combines `ls`, `clear`, `cd`, and `less`.  It changes to the argument directory--if one is provided--clears the screen, and then produces a detailed, colored listing.  Additionally, if the listing is larger than the viewport, the `less` command takes over, allowing you to navigate the listing.
 
-### `setenv`
+### setenv
+
 `setenv` is a quick way to create an environment variable.  Here is how you would use it:
 
-```command
+```sh
 setenv X 'thine dork lord'
 ```
 
-### `hgrep`
+### hgrep
+
 The `hgrep` function allows you to search your command history using `grep`. Here is an example of using the it:
 
 ```sh
@@ -243,8 +244,7 @@ hgrep 'ls'
 
 Here is some possible output:
 
-```
-[secondary_label Output]
+```text
 85  cd dotfiles/
 86  ll
 87  cd ..
@@ -254,13 +254,11 @@ Here is some possible output:
 
 You can then execute the command `rm -r` dotfiles/ using `!88`.
 
-<$>[note]
-**Note:** The `hgrep` function makes use of `$@` which when evaluated in double quotes represents all of the arguments passed in.
-<$>
+> **Note:** The `hgrep` function makes use of `$@` which when evaluated in double quotes represents all of the arguments passed in.
 
 I strongly recommend acquainting yourself with bash's command history.
 
-## Step Five – Creating `.vars` File
+## Step Five -- Creating `.vars` File
 
 You will include your environment variables and miscellaneous settings in `.vars`. Open it using the following command:
 
@@ -299,12 +297,14 @@ The other settings affect your command history. By default bash adds your execut
 * `HISTCONTROL=ignoreboth` combines two other settings: `ignorespace`, which ignores leading whitespace on commands, and `ignoredups`, which prevents duplicate commands from being added to command history.
 * `shopt -s histappend` makes bash write all your current session's commands to `.bash_history`, making them available in future sessions.
 
-## Step Six – Creating `.prompt`
+## Step Six -- Creating `.prompt`
 
 Open `.prompt` using the following command:
+
 ```sh
 vim shell/.prompt
 ```
+
 This `.prompt` file produces a nice, colored prompt that also shows the current git branch if there is one. I like how it defines a variable for each color.
 
 ```sh
@@ -334,9 +334,8 @@ set_prompt() {
 # Call the set_prompt function whenever a new prompt is needed
 PROMPT_COMMAND=set_prompt
 ```
-<$>[note]
-**Note:** Credit goes to the Claude 3 A.I. for generating this prompt.
-<$>
+
+> **Note:** Credit goes to the Claude 3 A.I. for generating this prompt.
 
 This prompt appears as follows:
 
@@ -350,12 +349,14 @@ This prompt appears as follows:
  : current-directory (git-branch) $ 
 ```
 
-## Step Seven – Creating `.aliases`
+## Step Seven -- Creating `.aliases`
 
 Your aliases go here. Open `.aliases` using the following command:
+
 ```sh
 vim shell/.aliases
 ```
+
 Here are some aliases I use:
 
 ```sh
@@ -373,16 +374,18 @@ A couple of interesting things here.
 - `alias b="cd ~-"` uses the `~-` expression, which represents the previous directory. This is a very nice back function.
 - the `l`, `..`, and `...` aliases all invoke our previously defined `cl` function in `.functions`.
 
-## Step Eight – Creating the Vim Files
+## Step Eight -- Creating the Vim Files
 
 In this section, we will create `.vimrc` and all of its constituent files.
 
 ### .vimrc
 
 Open `.vimrc` using the following command:
+
 ```sh
 vim .vimrc
 ```
+
 Add the following to your `.vimrc`:
 
 ```vim
@@ -404,9 +407,7 @@ source ~/.vim/autoload.vim
 
 The commented-out lines show how to include your custom plugins and third-party plugins.
 
-<$>[note]
-**Note:** I strongly recommend browsing vim.org for plugins, which has a large database of plugins that do all sorts of great things for you: intellisense-like completion menus, a file explorer, custom color schemes, syntax files, and more. The tutorial [How To Use Vundle to Manage Vim Plugins on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-use-vundle-to-manage-vim-plugins-on-a-linux-vps) by Justin Ellingwood teaches you how to use the Vundle vim plugin manager to install plugins.
-<$>
+> **Note:** I strongly recommend browsing vim.org for plugins, which has a large database of plugins that do all sorts of great things for you: intellisense-like completion menus, a file explorer, custom color schemes, syntax files, and more. The tutorial [How To Use Vundle to Manage Vim Plugins on a Linux VPS](https://www.digitalocean.com/community/tutorials/how-to-use-vundle-to-manage-vim-plugins-on-a-linux-vps) by Justin Ellingwood teaches you how to use the Vundle vim plugin manager to install plugins.
 
 ### .vim/autoload.vi
 
@@ -424,9 +425,11 @@ autocmd FileType html xml setlocal commentstring=autoload FileType css setlocal 
 ### .vim/maps.vim
 
 Open `maps.vim` using the following command:
+
 ```sh
 vim .vim/maps.vim
 ```
+
 Maps are really specific to each user. These happen to be useful to me.
 
 ```vim
@@ -457,9 +460,11 @@ inoremap <leader>s <esc>:w<cr>a
 ### .vim/set.vim
 
 Open `set.vim` using the following command:
+
 ```sh
 vim .vim/set.vim
 ```
+
 Here is a very good collection of vim settings.
 
 ```vim
@@ -512,6 +517,7 @@ set smartindent
 
 let mapleader=';'
 ```
+
 Here are some key takeaways:
 
 ```vim
@@ -519,6 +525,7 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 ```
+
 These settings make vim use tabs--two spaces in size-whenever possible.
 
 ```vim
@@ -526,31 +533,37 @@ These settings make vim use tabs--two spaces in size-whenever possible.
 "set foldmethod=indent
 "set foldnestmax=3
 ```
+
 I commented this out because I haven't been writing too much code lately. If you write a lot of code, I recommend trying these settings out. They enable folding for indented blocks of code and shows line numbers relative to the cursor position.
 
 ```vim
 " Disable swap files
 set noswapfile
 ```
+
 Those vim `.swp` swap files are ignoring. This shuts them off.
 
 ```vim
 set mouse=a
 ```
+
 This lets you use the mouse. I didn't know this one existed until I talked to Claude 3.
 
 ```vim
 set splitbelow
 set splitright
 ```
+
 By default `:sp` splits above and `:vs` splits right. These settings change the directions to below and left, respectively.
+
 ```vim
 " Highlight current line
 set cursorline
 ```
+
 This is an interesting setting. It shows a horizontal line below the cursor, making it easier to see where you are.
 
-## Step Nine – Updating Your Repository
+## Step Nine -- Updating Your Repository
 
 Congratulations for making this far. You have successfully built your dotfiles project. The last step is to update your remote repository. 
 
@@ -565,9 +578,8 @@ Let's consume our dotfiles repository.  Create a new Codespace and launch a term
 cd
 git clone https://github.com/username/dotfiles.git
 ```
-<$>[note]
-**Note:** Replace <^>username<^> above with your GitHub username.
-<$>
+
+> **Note:** Replace `username` above with your GitHub username.
 
 Change to the dotfiles directory and run the installation script using the following commands:
 
@@ -582,9 +594,7 @@ chmod +x ./install.sh
 source ~/.bashrc
 ```
 
-<$>[note]
-**Note:** `!$` represents the last argument passed to the last command.
-<$>
+> **Note:** `!$` represents the last argument passed to the last command.
 
 Now all your customizations are in place. Don't forget to test everything.
 
