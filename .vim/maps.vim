@@ -17,6 +17,7 @@ nnoremap Bd :bd!<cr>
 " Saving Files
 "
 nnoremap <F4> :w<cr>:so %<cr>
+inoremap <F4> <esc>:w<cr>:so %<cr>i
 
 nnoremap <leader>s :w<cr>a
 inoremap <leader>s <esc>:w<cr>a
