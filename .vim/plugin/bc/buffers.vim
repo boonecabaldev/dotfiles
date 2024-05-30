@@ -44,11 +44,15 @@ function! Buffers.new() abort
     execute 'badd ' . fnameescape(a:filename)
   endfunction
 
+  function! new_obj.getBufferVar(number, mod) abort
+    return getbufvar(a:number, a:mod)
+  endfunction
+
   function! new_obj.numbers() abort
     return copy(range(1, bufnr('$')))
   endfunction
 
-  function! new_obj.list() abort
+  function! new_obj.echoBufferList() abort
     ls
   endfunction
 
@@ -62,6 +66,22 @@ function! Buffers.new() abort
 
   function! new_obj.infoItems() abort
     return getbufinfo()
+  endfunction
+
+  function! PrintBufferInfo()
+    let l:str = ''
+    for buf in getbufinfo()
+      if buf.loaded && buf.listed
+        let l:str = l:str . 'Buffer number: ' . buf.bufnr
+        let l:str = l:str . 'Buffer name: ' . buf.name
+        let l:str = l:str . 'Last used: ' . strftime('%Y-%m-%d %H:%M:%S', buf.lastused)
+        let l:str = l:str . 'Line count: ' . buf.linecount
+        let l:str = l:str . 'Current line: ' . buf.lnum
+        let l:str = l:str . 'Changed: ' . (buf.changed ? 'yes' : 'no')
+        let l:str = l:str . '---'
+      endif
+    endfor
+    return l:str
   endfunction
 
   function! new_obj.closeAllBut(active_buffer_num) abort dict
