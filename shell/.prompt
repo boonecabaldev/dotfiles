@@ -17,12 +17,9 @@ set_prompt() {
     # Get the current Git branch
     BRANCH=$(parse_git_branch)
 
-    # Get Conda environment status
-    CONDA_ENV_STATUS=""
-    if [ -n "$CONDA_PROMPT_MODIFIER" ]; then
-        CONDA_ENV_STATUS="${CYAN}${CONDA_PROMPT_MODIFIER}${RESET} " # Added space after for separation
-    fi
-
     # Set the prompt
-    PS1="${CONDA_ENV_STATUS}${GREEN}\u${RESET}@${BLUE}\h${RESET}\n : ${YELLOW}\w${RESET}${PURPLE}${BRANCH}${RESET} $ "
+    PS1="${GREEN}\u${RESET}@${BLUE}\h${RESET}\n : ${YELLOW}\w${RESET}${PURPLE}${BRANCH}${RESET} $ "
 }
+
+# Call the set_prompt function whenever a new prompt is needed
+PROMPT_COMMAND=set_prompt
