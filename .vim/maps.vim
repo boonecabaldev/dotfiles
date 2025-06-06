@@ -2,8 +2,8 @@
 "
 nnoremap <leader>O mpO<esc>`p
 nnoremap <leader>o mpo<esc>`p
-nnoremap <leader><leader>o o<esc>O
-nnoremap <leader><leader>O O<esc>o
+nnoremap <leader>2o mpo<esc>O<esc>`p
+nnoremap <leader>2O mpO<esc>o<esc>`p
 
 " Moving around
 "
