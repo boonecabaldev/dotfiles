@@ -2,10 +2,13 @@
 "
 nnoremap <leader>O mpO<esc>`p
 nnoremap <leader>o mpo<esc>`p
+nnoremap <leader><leader>o o<esc>O
+nnoremap <leader><leader>O O<esc>o
 
 " Moving around
 "
 inoremap <leader><leader> <esc>A
+
 
 " Buffers and windows
 "
