@@ -3,6 +3,7 @@ source ~/.vim/set.vim
 source ~/.vim/maps.vim
 source ~/.vim/autocmd.vim
 source ~/.vim/func.vim
+source ~/.vim/vim9lib.vim
 
 "##################################################
 " Plugins
