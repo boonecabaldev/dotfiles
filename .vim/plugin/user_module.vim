@@ -1,13 +1,11 @@
-# user_module.vim - Defines a User struct and functions acting on it
-
 vim9script
 
 # 1. Define the User struct
-# It contains fields for name (string) and age (number).
-export struct User
-  name: string
-  age: number
-endstruct
+# It contains fields for name (string) and age (number). (Using class for broader Vim version compatibility)
+export class User
+  var name: string
+  var age: number
+endclass
 
 # 2. Define a function that operates on a User struct instance.
 # We name the first argument 'self' by convention.

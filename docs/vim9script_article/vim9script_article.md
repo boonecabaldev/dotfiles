@@ -8,7 +8,7 @@
 
 ### Difference Between `vimscript` and `vim9script`
 
-- `vim9script` is a major upgrade for 
+- `vim9script` is a major upgrade for
 
 | Feature           | Legacy Vimscript (VimL)                     | Vim9script                                  |
 | :---------------- | :------------------------------------------ | :------------------------------------------ |
