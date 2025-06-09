@@ -31,7 +31,7 @@ set splitright
 
 set mouse=a
 
-colorscheme desert
+colorscheme torte
 set background=dark
 
 set wrap

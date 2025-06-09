@@ -23,3 +23,12 @@
 | **Scope Default** | Global (`g:`)                               | Script-local                                |
 | **Modules** | No formal module system                     | `import`/`export` system                    |
 | **Error Handling**| Simpler mechanisms                          | `try`/`catch`/`finally` blocks              |
+
+
+---
+
+What We Will Do In This Tutorial
+
+1. Cover class and module syntax.
+2. Create a vim9script module file `user_mod.vim`.
+3. Create a file `user_mod_test.vim` that imports and tests our `User` class defined in `2.` above.

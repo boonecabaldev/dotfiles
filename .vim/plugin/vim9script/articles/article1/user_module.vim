@@ -19,4 +19,4 @@ export def IsAdult(self: User): bool
   return self.age >= 18
 enddef
 
-echo "User module loaded."
+#echo "User module loaded."
