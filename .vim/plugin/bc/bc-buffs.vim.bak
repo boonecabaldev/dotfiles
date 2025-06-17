@@ -1,11 +1,22 @@
+"echo "*** Start bc-buffs.vim ***"
+
 "
 " Closes all buffers and panes except current one
 "
 function! CloseAllButCurrent()
     let current_bufnr = bufnr('%')
-    for bufnr in range(1, bufnr('$'))
-        if bufexists(bufnr) && buflisted(bufnr) && bufnr != current_bufnr
-            silent execute 'bdelete!' bufnr
+    let buflist = getbufinfo({'buflisted': 1}) " Get only listed buffers
+    
+    for buf in buflist
+        if buf.bufnr != current_bufnr
+            " Check if buffer is modified
+            if getbufvar(buf.bufnr, '&modified')
+                echohl WarningMsg
+                echo "Buffer" buf.name "has unsaved changes (not closing)"
+                echohl None
+            else
+                execute 'silent! bdelete' buf.bufnr
+            endif
         endif
     endfor
 endfunction
@@ -90,4 +101,6 @@ function! BuffersHub()
     endif
 endfunction
 
-nnoremap <leader>b :call CloseAllButCurrent()<CR>
+"echo "*** End bc-buffs ***"
+
+nnoremap ;cab :call CloseAllButCurrent()<cr>
